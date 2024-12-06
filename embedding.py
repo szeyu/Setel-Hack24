@@ -2,6 +2,7 @@ from transformers import CLIPProcessor, CLIPModel, pipeline
 from PIL import Image
 import base64
 import io
+import numpy as np
 
 # Function to convert image (base64 string) to vector
 def img2vec(image_base64):
@@ -24,6 +25,6 @@ def text2vec(text):
     model_name = "sentence-transformers/all-MiniLM-L6-v2"
     text_pipeline = pipeline("feature-extraction", model=model_name)
 
-    # Get the vector for the text
+    # Get the vector for the text (flatten to 1D if batched)
     text_vector = text_pipeline(text)
-    return text_vector[0]
+    return np.mean(text_vector[0], axis=0)  # Take mean if it's batched

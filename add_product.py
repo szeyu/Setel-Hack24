@@ -19,55 +19,6 @@ c.execute('''CREATE TABLE IF NOT EXISTS products
 c.execute("SELECT * FROM products")
 products = c.fetchall()
 
-# Display products in a table
-if products:
-    st.subheader("Product List")
-    df = pd.DataFrame(products, columns=["Product ID", "Name", "Description", "Stock Count", "Price", "Image", "Image Vector Embedding", "Name Description Vector Embedding"])
-    
-    # Create a new display DataFrame
-    display_data = []
-    for index, row in df.iterrows():
-        # Decode image
-        image_data = base64.b64decode(row["Image"])
-        image = Image.open(BytesIO(image_data))
-
-        # Decode embeddings
-        image_vector_embedding = np.frombuffer(row["Image Vector Embedding"], dtype=np.float32)
-        name_description_vector_embedding = np.frombuffer(row["Name Description Vector Embedding"], dtype=np.float32)
-
-        # Format embedding into readable strings (truncate for readability)
-        image_embedding_text = ", ".join([f"{v:.2f}" for v in image_vector_embedding[:5]]) + "..."  # First 5 values
-        name_desc_embedding_text = ", ".join([f"{v:.2f}" for v in name_description_vector_embedding[:5]]) + "..."  # First 5 values
-
-        # Add to display data
-        display_data.append({
-            "Product ID": row["Product ID"],
-            "Name": row["Name"],
-            "Description": row["Description"],
-            "Stock Count": row["Stock Count"],
-            "Price": row["Price"],
-            "Image": image,
-            "Image Embedding": image_embedding_text,
-            "Name Description Embedding": name_desc_embedding_text,
-        })
-
-    # Create a DataFrame for display
-    display_df = pd.DataFrame(display_data)
-
-    # Display the table row by row
-    for _, row in display_df.iterrows():
-        st.write(f"**Product ID**: {row['Product ID']}")
-        st.write(f"**Name**: {row['Name']}")
-        st.write(f"**Description**: {row['Description']}")
-        st.write(f"**Stock Count**: {row['Stock Count']}")
-        st.write(f"**Price**: ${row['Price']:.2f}")
-        st.image(row["Image"], caption=row["Name"], use_container_width=True)
-        st.write(f"**Image Embedding**: {row['Image Embedding']}")
-        st.write(f"**Name Description Embedding**: {row['Name Description Embedding']}")
-        st.write("---")
-else:
-    st.write("No products found.")
-
 # Streamlit interface for adding products
 st.title("Add Product")
 
