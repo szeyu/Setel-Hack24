@@ -20,7 +20,7 @@ def cosine_similarity(vec1, vec2):
 conn = sqlite3.connect("products.db")
 c = conn.cursor()
 
-# Display all products
+# Display all products with delete functionality
 def display_products():
     st.title("Product Viewer")
 
@@ -55,9 +55,20 @@ def display_products():
             image_data = base64.b64decode(row["Image"])
             image = Image.open(BytesIO(image_data))
             st.image(image, caption=row["Name"], use_container_width=True)
+            
+            # Add a delete button for each product
+            if st.button(f"Delete {row['Name']}", key=row["Product ID"]):
+                delete_product(row["Product ID"])
+                st.success(f"Product '{row['Name']}' has been deleted.")
+                st.rerun()  # Refresh the app to reflect changes
             st.write("---")
     else:
         st.warning("No products available in the database.")
+
+# Function to delete a product from the database
+def delete_product(product_id):
+    c.execute("DELETE FROM products WHERE product_id = ?", (product_id,))
+    conn.commit()
 
 # Image search feature
 def search_by_image():
@@ -79,8 +90,8 @@ def search_by_image():
         for row in products:
             product_id, name, description, stock_count, price, image, img_emb, name_desc_emb = row
             stored_vector = np.frombuffer(img_emb, dtype=np.float32)
-            st.write(f"Query vector shape: {np.array(query_vector).shape}")
-            st.write(f"Stored vector shape: {np.array(stored_vector).shape}")
+            # st.write(f"Query vector shape: {np.array(query_vector).shape}")
+            # st.write(f"Stored vector shape: {np.array(stored_vector).shape}")
 
             similarity = cosine_similarity(query_vector, stored_vector)
             results.append((name, similarity))
