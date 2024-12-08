@@ -47,9 +47,9 @@ pip install -r requirements.txt
 streamlit run add_product.py
 ```
 
-4. Start the product search:
+4. Start the product search interface:
 ```bash
-streamlit run product_recognision.py
+streamlit run dbms_product.py
 ```
 
 
