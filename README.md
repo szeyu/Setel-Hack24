@@ -11,9 +11,9 @@ This repository implements a vector search solution based on image and text embe
 ├── LICENSE                 # License information
 ├── README.md               # Project documentation
 ├── add_product.py          # Streamlit app for adding new products to the database
-├── dbms_product.py         # Database management system (DBMS) logic for product handling
+├── dbms_product.py         # Streamlit app for Database management system (DBMS) logic for product handling
 ├── embedding.py            # Functions to generate embeddings for images and text
-├── product_recognision.py  # Streamlit app for searching and recognizing products
+├── product_recognision.py  # Functions for searching and recognizing products
 ├── products.db             # SQLite database for storing product information and embeddings
 ├── requirements.txt        # Python dependencies required for this project
 └── vector_search.py        # Functions for vector-based search and similarity calculation
@@ -42,12 +42,12 @@ cd vector-search
 pip install -r requirements.txt
 ```
 
-3. Run the Streamlit application:
+3. Run the add product streamlit interface:
 ```bash
 streamlit run add_product.py
 ```
 
-4. Start the product search interface:
+4. Start the product search streamlit interface:
 ```bash
 streamlit run dbms_product.py
 ```
