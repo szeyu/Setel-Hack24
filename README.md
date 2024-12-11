@@ -9,6 +9,7 @@ This repository implements a vector search solution based on image and text embe
 ├── assets/                 # Folder containing sample product images for demonstration
 ├── .gitignore              # Git ignore file
 ├── LICENSE                 # License information
+├── LEARN.md                # Learning documentation
 ├── README.md               # Project documentation
 ├── add_product.py          # Streamlit app for adding new products to the database
 ├── dbms_product.py         # Streamlit app for Database management system (DBMS) logic for product handling
@@ -67,6 +68,9 @@ streamlit run dbms_product.py
 
 ## Example Files
   The `assets/` directory includes sample product images you can use to test the app.
+
+## Learn
+You can learn this project from [LEARN.md](LEARN.md).
 
 ## License
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
